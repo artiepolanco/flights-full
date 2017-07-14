@@ -70,7 +70,7 @@ $(document).on("click", "#origin li", function(){
   var airportCode = liSplit.slice(-1)[0];
   console.log(liSplit);
   console.log(airportCode);
-  $("#origin__location").val(airportCode);
+  $("#search_origin__location").val(airportCode);
 });
 
 $(document).on("click", "#destination li", function(){
@@ -82,5 +82,5 @@ $(document).on("click", "#destination li", function(){
   var airportCode = liSplit.slice(-1)[0];
   console.log(liSplit);
   console.log(airportCode);
-  $("#destination__location").val(airportCode);
+  $("#search_destination__location").val(airportCode);
 });

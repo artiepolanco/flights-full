@@ -27,17 +27,19 @@
 </div>
 
 <div class="container">
-  <form class="search__form">
-    <div class="form-group">
-      <label for="origin__location">Origin</label>
-      <input class="form-control" id="origin__location">
+  <%= form_for(:search, url: search_results_path, method: :get) do |f| %>
+  <div class="form-group">
+    <label for="origin__location">Origin</label>
+    <%= f.text_field :origin__location, class: "form-control" %>
 
-      <label for="destination__location">Destination</label>
-      <input class="form-control" id="destination__location">
+    <label for="destination__location">Destination</label>
+    <%= f.text_field :destination__location, class: "form-control" %>
 
-      <label for="date">When?</label> <br>
-      <input type="date" data-date-picker="true" id="date"/>
-    </div>
-    <button id="search__submit" class="btn btn-default">Search flights</button>
-  </form>
+    <label for="date">When?</label> <br>
+    <%= f.text_field :date, type: :date, data:{ provide:'datepicker' } %>
+  </div>
+    <%= f.submit "Search Flights", class: "btn btn-default" %>
+  <% end %>
+  </div>
+
 </div>

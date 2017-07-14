@@ -1,2 +1,184 @@
-<h1>Search#results</h1>
-<p>Find me in app/views/search/results.html.erb</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Flights-on-Flights</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <header class="tabs">
+      <div id="pre_tab">
+
+      </div>
+      <div id="tab1" class="tab">
+        <span class="glyphicon glyphicon-plane"></span>
+        <div class="inner_tab_right">
+          <div class="tab_locations">
+            <span><b> <%=params[:search][:origin__location]  %> </b></span>
+            <span class="glyphicon glyphicon-resize-horizontal"></span>
+            <span><b> <%=params[:search][:destination__location]  %> </b></span>
+          </div>
+          <div class="tab_dates">
+            <span> <%=params[:search][:date]  %> </span>
+          </div>
+        </div>
+      </div>
+      <div id="tab2" class="tab">
+        <span class="glyphicon glyphicon-plane"></span>
+        <div class="inner_tab_right">
+          <div class="tab_locations">
+            <span><b><%=params[:search][:origin__location]  %></b></span>
+            <span class="glyphicon glyphicon-resize-horizontal"></span>
+            <span><b><%=params[:search][:destination__location]  %></b></span>
+          </div>
+          <div class="tab_dates">
+            <span><%=params[:search][:date]  %></span>
+          </div>
+        </div>
+      </div>
+      <div id="filler_tab"></div>
+    </header>
+    <div class="input_form">
+      <div class="airport_input"><input class="inside_input" type="text"></div>
+      <div class="airport_input"><input class="inside_input" type="text"></div>
+      <div class="glyphicon glyphicon-calendar"></div>
+      <div class="calendar"><input type="date" data-date-inline-picker="true"/></div>
+      <div class="glyphicon glyphicon-minus"></div>
+      <div class="calendar"><input type="date" data-date-inline-picker="true"/></div>
+      <div class="search_button"><input id="main_search" class="button" type="submit" value="Search"></div>
+      <div class="plus_button"><button type="button" class="glyphicon glyphicon-plus"></button></div>
+    </div>
+    <div id="body">
+      <div id="left_bar">
+        <div class="links_section">
+          <div >
+            <ul>
+              <li class="linkitems"><a href="#">Price alert</a></li>
+              <li class="linkitems"><a href="#">Fare charts</a></li>
+              <li class="linkitems"><a href="#">Airline fees</a></li>
+            </ul>
+          </div>
+          <div id="flex_dates">
+            <p>Flex dates: <a href="#">&plusmn; 3 days</a> | <a href="#">Explorer</a></p>
+
+          </div>
+        </div>
+        <div id="price_trend_section">
+          <p class="section_title" id="price_trend">Price Trend</p>
+          <%= image_tag("price-trend-graph.png") %>
+          <p id="advice"><b>Advice: Wait   Confidence: 79%</b></p>
+          <p>Prices may fall within 7 days <span class="glyphicon glyphicon-info-sign"></span></p>
+        </div>
+        <div id="stops_section">
+          <p class="section_title">Stops</p>
+          <div class="inner_stops">
+            <div class="checks_group">
+              <div class="checks" ><input class="checkbox" type="checkbox"><p>nonstop</p></div>
+              <div class="checks" ><input class="checkbox" type="checkbox"><p>1 stop</p></div>
+              <div class="checks" ><input class="checkbox" type="checkbox"><p>2+ stops</p></div>
+            </div>
+            <div class="prices_group">
+              <p>$893</p>
+              <p>$1000</p>
+              <p>$2737</p>
+            </div>
+          </div>
+
+          <div class="stops_link"><a href="#">Show airline/stop price matrix</a></div>
+        </div>
+        <div id="times_section">
+          <p class="section_title">Times</p>
+          <div class="section_title_2"><p>Take-off New York</p></div>
+          <div class="section_info"> <p>Tue 2:00p - Wed 10:00p</p></div>
+          <%= image_tag("slider.png") %>
+          <div class="section_title_2"><p>Take-off Reyjavik</p></div>
+          <div class="section_info"> <p>Tue 12:00a - 12:00a</p></div>
+          <%= image_tag("slider.png") %>
+          <div class="bottom_link"><a href="#">Show landing times</a></div>
+        </div>
+        <div id="airports_section">
+          <p class="section_title">Airports</p>
+          <div class="checks" ><input class="checkbox" type="checkbox"><p>Depart/Return, same airports</p></div>
+        </div>
+      </div>
+      <div id="right_bar">
+        <div id="right_header">
+          <div class="list_amount">
+            <p><b>15</b> of <b>64 flights </b><a href="#">show all</a></p>
+            <div class="dropdown">
+              <select name="Sort by price (low to high)">
+                <option value="1">Sort by price (low to high)</option>
+                <option value="2">Sort by price (high to low)</option>
+                <option value="3">Sort by duration (low to high)</option>
+                <option value="4">Sort by duration (high to low)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="check_rates">
+          <div id="check_rates_left">
+            <p>Check Rates</p>
+            <div class="search_button"><input class="button" type="submit" value="Select"></div>
+          </div>
+          <div class="check_rates_right">
+            <p class="right_bar_right_section_title">Faster flights. More legroom. 2 Bags free</p>
+            <p class="right_bar_right_section_info">Save time and money with Icelander on your way time to Reykjavik</p>
+            <a href="#" class="check_rates_link">Icelandair.us</a>
+          </div>
+        </div>
+        <!-- 1st result box -->
+        <% @als.each do |flight|  %>
+        <div class="result">
+          <div class="results_left">
+            <p class="result_price"> <%= flight[:price]  %> </p>
+            <p class="result_under_price">KAYAK</p>
+            <div class="select_button"><input class="button" type="submit" value="Select"></div>
+            <div class="links_under_select">
+              <a href="#">Orbitz</a>
+              <a href="#">$902</a>
+            </div>
+            <div class="links_under_select">
+              <a href="#">Cheap Tickets.com</a>
+              <a href="#">$902</a>
+            </div>
+            <div class="dropdown">
+              <select name="Sort by price (low to high)">
+                <option value="1">6 more sites</option>
+                <option value="2">google.com</option>
+                <option value="3">priceline.com</option>
+                <option value="4">expedia.com</option>
+                <option value="4">lastminuteair.com</option>
+                <option value="4">getemwhiletheyhot.com</option>
+                <option value="4">sweetdeals.com</option>
+              </select>
+            </div>
+          </div>
+          <div class="results_right">
+            <div class="small-logo">
+
+            </div>
+            <div class="right_bar_inner_group">
+
+              <p class="right_bar_right_section_title"> <%= flight[:airline] || "JetBlue" %>  </p>
+              <div class="right_bar_right_section_info">
+                <span><%=params[:search][:origin__location]  %></span>
+
+                <span class="glyphicon glyphicon-arrow-right"></span>
+                <span><%=params[:search][:destination__location]  %></span>
+
+                <span> <%=flight[:duration]  %> </span>
+                <span>nonstop</span>
+              </div>
+
+              <div class="dt_button_group">
+                <div class="search_button"><input class="dt_button" type="submit" value="Details"></div>
+                <div class="search_button"><input class="dt_button" type="submit" value="Fares"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+         <% end %>
+
+      </div>
+    </div>
