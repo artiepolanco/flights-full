@@ -30,6 +30,6 @@ class SearchController < ApplicationController
   end
 
   def results
-
+    
   end
 end

@@ -18,6 +18,7 @@ $(document).ready(function () {
       url: '/search/originAirport',
       data: {selected_value : originInput},
       success: function (airports){
+        $originForm.append('<h4>Select one of the Airports below:</h4>');
         $.each(airports, function(i, airport){
           $originForm.append('<li>Airport Name: '+ airport.name +', Airport Code: '+ airport.code +'</li>')
         });
@@ -46,8 +47,9 @@ $(document).ready(function () {
       url: '/search/desAirport',
       data: {selected_value : destinationInput},
       success: function (airports){
+        $destinationForm.append('<h4>Select one of the Airports below:</h4>');
         $.each(airports, function(i, airport){
-          $destinationForm.append('<li>Airport Name: '+ airport.name +', Airport Code: '+ airport.code +'</li>')
+          $destinationForm.append('<li>Airport Name: '+ airport.name +', Airport Code: '+ airport.code +'</li>');
         });
       },
       error: function(){
@@ -56,4 +58,29 @@ $(document).ready(function () {
       }
     });
   });
+
+});
+
+$(document).on("click", "#origin li", function(){
+  console.log("li clicked");
+  $("li").css("background", "none");
+  $(this).css("background", "green");
+  var liText = $(this).text();
+  var liSplit = liText.split(" ");
+  var airportCode = liSplit.slice(-1)[0];
+  console.log(liSplit);
+  console.log(airportCode);
+  $("#origin__location").val(airportCode);
+});
+
+$(document).on("click", "#destination li", function(){
+  console.log("li clicked");
+  $("li").css("background", "none");
+  $(this).css("background", "green");
+  var liText = $(this).text();
+  var liSplit = liText.split(" ");
+  var airportCode = liSplit.slice(-1)[0];
+  console.log(liSplit);
+  console.log(airportCode);
+  $("#destination__location").val(airportCode);
 });
